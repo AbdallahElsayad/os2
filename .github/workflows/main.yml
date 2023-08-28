@@ -1,1 +1,34 @@
+on:
+  push:
+    branches:
+      - master
+
+
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Testing Github'
+        run: pwd
+
+      - name: 'Testing Printing'
+        run: echo Abdallah
+
+      - name: 'print folder contact before'
+        run: ls
+      - uses: actions/checkout@v3
+
+      - name: 'print folder contact after'
+        run: ls
+      - name: "login"
+        run: docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: "build iage"
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/os2 .
+      - name: "pushing"
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/os2
 
